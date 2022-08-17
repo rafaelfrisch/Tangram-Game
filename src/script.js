@@ -1,7 +1,10 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-
+import { sizes } from "./constants.js";
+import { createCamera } from './camera';
+import { createControls } from './controls';
+import { createRenderer } from './renderer';
 /**
  * Base
  */
@@ -14,10 +17,6 @@ const scene = new THREE.Scene()
 /**
  * Sizes
  */
-const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight
-}
 
 window.addEventListener('resize', () =>
 {
@@ -38,15 +37,12 @@ window.addEventListener('resize', () =>
  * Camera
  */
 // Base camera
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
-camera.position.x = 1
-camera.position.y = 1
-camera.position.z = 1
+const camera = createCamera();
+
 scene.add(camera)
 
 // Controls
-const controls = new OrbitControls(camera, canvas)
-controls.enableDamping = true
+const controls = createControls(camera, canvas);
 
 /**
  * Cube
@@ -60,12 +56,7 @@ scene.add(cube)
 /**
  * Renderer
  */
-const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-    antialias: true,
-})
-renderer.setSize(sizes.width, sizes.height)
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+const renderer = createRenderer(canvas)
 
 /**
  * Animate
