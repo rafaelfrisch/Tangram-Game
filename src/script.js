@@ -1,10 +1,10 @@
 import './style.css'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { sizes } from "./constants.js";
+import { sizes } from "./constants";
 import { createCamera } from './camera';
 import { createControls } from './controls';
 import { createRenderer } from './renderer';
+import { createTriangle, createSquare } from './shapes';
 /**
  * Base
  */
@@ -47,11 +47,10 @@ const controls = createControls(camera, canvas);
 /**
  * Cube
  */
-const cube = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshBasicMaterial({ color: 0xff0000 })
-)
-scene.add(cube)
+
+createTriangle(1, 0, "#0f0", scene, 1);
+createTriangle(-1, 0, "#00f", scene, 1);
+createSquare(0, 0, "#f00", scene, 1);
 
 /**
  * Renderer
