@@ -4,7 +4,7 @@ import { sizes } from "./constants";
 import { createCamera } from './camera';
 import { createControls } from './controls';
 import { createRenderer } from './renderer';
-import { createTriangle, createSquare } from './shapes';
+import { createTangram } from './shapes';
 /**
  * Base
  */
@@ -44,13 +44,8 @@ scene.add(camera)
 // Controls
 const controls = createControls(camera, canvas);
 
-/**
- * Cube
- */
-
-createTriangle(1, 0, "#0f0", scene, 1);
-createTriangle(-1, 0, "#00f", scene, 1);
-createSquare(0, 0, "#f00", scene, 1);
+// pieces of tangram and the figure game
+const { pinkTriangle, purpleTriangle, smallerRedTriangle, biggerRedTriangle, yellowTriangle, greenSquare, blueParalellgram } = createTangram(scene);
 
 /**
  * Renderer

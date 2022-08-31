@@ -1,5 +1,9 @@
 # Tangram-Game
 
+## Referência
+https://escolakids.uol.com.br/matematica/tangram.htm
+Ver também arquivo reference.png
+
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
 Run this followed commands:
