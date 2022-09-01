@@ -10,7 +10,7 @@ import Utils from './utils.js'
 export const createTangram = (scene) => {
 
   const size = 1;
-  const originX = 0;
+  const originX = 1;
   const originY = 0;
   const figureOffSetX = 3;
   const figureOffSetY = 0;
