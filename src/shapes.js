@@ -10,7 +10,7 @@ import Utils from './utils.js'
 export const createTangram = (scene) => {
 
   const size = 1;
-  const originX = 1;
+  const originX = 0;
   const originY = 0;
   const figureOffSetX = 3;
   const figureOffSetY = 0;
@@ -32,78 +32,14 @@ export const createTangram = (scene) => {
   let shape;
   let geometry;
   let material;
-  
-  // creating the pink triangle
-  shape = new THREE.Shape();
-  shape.moveTo(originX, originY);
-  shape.lineTo(originX, originY + size);
-  shape.lineTo(originX + size / 2, originY + size / 2);
-  geometry = new THREE.ShapeGeometry(shape);
-  material = new THREE.MeshBasicMaterial( { color: COLORS.PINK } );
-  const pinkTriangle = new THREE.Mesh( geometry, material );
-  scene.add( pinkTriangle );
 
-  // creating the purple triangle
-  shape = new THREE.Shape();
-  shape.moveTo(originX + size / 2, originY + size / 2);
-  shape.lineTo(originX, originY + size);
-  shape.lineTo(originX + size, originY + size);
-  geometry = new THREE.ShapeGeometry(shape);
-  material = new THREE.MeshBasicMaterial( { color: COLORS.PURPLE } );
-  const purpleTriangle = new THREE.Mesh( geometry, material );
-  scene.add( purpleTriangle );
+  // creating background
+  const loader = new THREE.TextureLoader();
+  loader.load('https://t4.ftcdn.net/jpg/03/16/36/59/360_F_316365913_WKVKZW7gzsqqhkx4PgGyu0rArj5GykHK.jpg', function(texture)
+              {
+                scene.background = texture;
+              });
 
-  // creating the smaller red triangle
-  shape = new THREE.Shape();
-  shape.moveTo(originX + size, originY + size / 2);
-  shape.lineTo(originX + size, originY + size);
-  shape.lineTo(originX + (3 / 4) * size, originY + (3 / 4) * size);
-  geometry = new THREE.ShapeGeometry(shape);
-  material = new THREE.MeshBasicMaterial( { color: COLORS.RED } );
-  const smallerRedTriangle = new THREE.Mesh( geometry, material );
-  scene.add( smallerRedTriangle );
-
-  // creating the bigger red triangle
-  shape = new THREE.Shape();
-  shape.moveTo(originX + size / 2, originY);
-  shape.lineTo(originX + size, originY);
-  shape.lineTo(originX + size, originY + size / 2);
-  geometry = new THREE.ShapeGeometry(shape);
-  material = new THREE.MeshBasicMaterial( { color: COLORS.RED } );
-  const biggerRedTriangle = new THREE.Mesh( geometry, material );
-  scene.add( biggerRedTriangle );
-
-  // creating the yellow triangle
-  shape = new THREE.Shape();
-  shape.moveTo(originX + size / 2, originY + size / 2);
-  shape.lineTo(originX + size / 4, originY + size / 4);
-  shape.lineTo(originX + (3 / 4) * size, originY + size / 4);
-  geometry = new THREE.ShapeGeometry(shape);
-  material = new THREE.MeshBasicMaterial( { color: COLORS.YELLOW } );
-  const yellowTriangle = new THREE.Mesh( geometry, material );
-  scene.add( yellowTriangle );
-
-  // creating the green square
-  shape = new THREE.Shape();
-  shape.moveTo(originX + size / 2, originY + size / 2);
-  shape.lineTo(originX + (3 / 4) * size, originY + size / 4);
-  shape.lineTo(originX + size, originY + size / 2);
-  shape.lineTo(originX + (3 / 4) * size, originY + (3 / 4) * size);
-  geometry = new THREE.ShapeGeometry(shape);
-  material = new THREE.MeshBasicMaterial( { color: COLORS.GREEN } );
-  const greenSquare = new THREE.Mesh( geometry, material );
-  scene.add( greenSquare );
-
-  // creating the blue parallelgram
-  shape = new THREE.Shape();
-  shape.moveTo(originX, originY);
-  shape.lineTo(originX + size / 2, originY);
-  shape.lineTo(originX + (3 / 4) * size, originY + size / 4);
-  shape.lineTo(originX + size / 4, originY + size / 4);
-  geometry = new THREE.ShapeGeometry(shape);
-  material = new THREE.MeshBasicMaterial( { color: COLORS.BLUE } );
-  const blueParalellgram = new THREE.Mesh( geometry, material );
-  scene.add( blueParalellgram );
 
   // creating the figure -> piece to piece
   let piece;
@@ -181,6 +117,114 @@ export const createTangram = (scene) => {
   scene.add( piece );
 
 
-  return { pinkTriangle, purpleTriangle, smallerRedTriangle, biggerRedTriangle, yellowTriangle, greenSquare, blueParalellgram };
+  // creating the pink triangle
+  shape = new THREE.Shape();
+  shape.moveTo(originX-size/6, originY-size/2);
+  shape.lineTo(originX-size/6, originY+size/2);
+  shape.lineTo(originX + size/3, originY);
+  geometry = new THREE.ShapeGeometry(shape);
+  material = new THREE.MeshBasicMaterial( { color: COLORS.PINK } );
+  const pinkTriangle = new THREE.Mesh( geometry, material );
+  pinkTriangle.position.set(size/6, size/2);
+  scene.add( pinkTriangle );
+  
+  pinkTriangle.userData.draggable = true;
+  pinkTriangle.userData.name = 'pink_Triangle';
+
+
+  // creating the purple triangle
+  shape = new THREE.Shape();
+  shape.moveTo(originX, originY - size/3);
+  shape.lineTo(originX-size/2, originY +size/6);
+  shape.lineTo(originX + size/2, originY + size/6);
+  geometry = new THREE.ShapeGeometry(shape);
+  material = new THREE.MeshBasicMaterial( { color: COLORS.PURPLE } );
+  const purpleTriangle = new THREE.Mesh( geometry, material );
+  purpleTriangle.position.set(size/2, size*5/6);
+  scene.add( purpleTriangle );
+
+  purpleTriangle.userData.draggable = true;
+  purpleTriangle.userData.name = 'purple_Triangle';
+
+
+  // creating the smaller red triangle
+  
+  shape = new THREE.Shape();
+  shape.moveTo(size/12, size/4);
+  shape.lineTo(size/12, -size/4);
+  shape.lineTo(-size/6, 0);
+  geometry = new THREE.ShapeGeometry(shape);
+  material = new THREE.MeshBasicMaterial( { color: COLORS.RED } );
+  const smallerRedTriangle = new THREE.Mesh( geometry, material );
+  smallerRedTriangle.position.set(size*11/12, size*3/4);
+  scene.add( smallerRedTriangle );
+
+  smallerRedTriangle.userData.draggable = true;
+  smallerRedTriangle.userData.name = 'smaller_Red_Triangle';
+
+
+  // creating the bigger red triangle
+  shape = new THREE.Shape();
+  shape.moveTo(originX + size/6, originY + size / 3);
+  shape.lineTo(originX + size/6, originY - size/6);
+  shape.lineTo(originX - size/3, originY - size/6);
+  geometry = new THREE.ShapeGeometry(shape);
+  material = new THREE.MeshBasicMaterial( { color: COLORS.RED } );
+  const biggerRedTriangle = new THREE.Mesh( geometry, material );
+  biggerRedTriangle.position.set(size*5/6, size/6);
+  scene.add( biggerRedTriangle );
+
+  biggerRedTriangle.userData.draggable = true;
+  biggerRedTriangle.userData.name = 'bigger_Red_Triangle';
+
+
+  // creating the yellow triangle
+  shape = new THREE.Shape();
+  shape.moveTo(-size/4, -size/12);
+  shape.lineTo(size/4, -size/12);
+  shape.lineTo(0, size/6);
+  geometry = new THREE.ShapeGeometry(shape);
+  material = new THREE.MeshBasicMaterial( { color: COLORS.YELLOW } );
+  const yellowTriangle = new THREE.Mesh( geometry, material );
+  yellowTriangle.position.set(size/2, size/3);
+  scene.add( yellowTriangle );
+
+  yellowTriangle.userData.draggable = true;
+  yellowTriangle.userData.name = 'yellow_Triangle';
+
+
+  // creating the green square
+  shape = new THREE.Shape();
+  shape.moveTo(0, -size/4);
+  shape.lineTo(-size/4, 0);
+  shape.lineTo(0, size/4);
+  shape.lineTo(size/4, 0);
+  geometry = new THREE.ShapeGeometry(shape);
+  material = new THREE.MeshBasicMaterial( { color: COLORS.GREEN } );
+  const greenSquare = new THREE.Mesh( geometry, material );
+  greenSquare.position.set(size*3/4, size/2);
+  scene.add( greenSquare );
+
+  greenSquare.userData.draggable = true;
+  greenSquare.userData.name = 'green_Square';
+
+  // creating the blue parallelgram
+  shape = new THREE.Shape();
+  shape.moveTo(-size*3/8, -size/8);
+  shape.lineTo(-size/8, size/8);
+  shape.lineTo(size*3/8, size/8);
+  shape.lineTo(size/8, -size/8);
+  geometry = new THREE.ShapeGeometry(shape);
+  material = new THREE.MeshBasicMaterial( { color: COLORS.BLUE } );
+  const blueParalellgram = new THREE.Mesh( geometry, material );
+  blueParalellgram.position.set(size*3/8, size/8);
+  scene.add( blueParalellgram );
+
+  blueParalellgram.userData.draggable = true;
+  blueParalellgram.userData.name = 'blue_paralellgram';
+
+
+
+  return { pinkTriangle, purpleTriangle, smallerRedTriangle, biggerRedTriangle, yellowTriangle, greenSquare, blueParalellgram, loader};
   
 }

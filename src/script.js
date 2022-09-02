@@ -63,6 +63,12 @@ var draggable = new THREE.Object3D;
 var objects = [pinkTriangle, purpleTriangle, smallerRedTriangle, biggerRedTriangle, yellowTriangle, greenSquare, blueParalellgram]
 
 window.addEventListener('click', (event) => {
+
+    if(draggable){
+        draggable = null;
+        return;
+    }
+    
     clickMouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
     clickMouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
@@ -70,12 +76,9 @@ window.addEventListener('click', (event) => {
 
     let intersects = raycaster.intersectObjects( objects );
 
-    if ( intersects.length > 0 ) {
-
+    if ( intersects.length > 0){
         draggable = intersects[0].object;
-
 	}
-
 })
 
 window.addEventListener('mousemove', (event) => {
@@ -88,14 +91,16 @@ function dragObject() {
         raycaster.setFromCamera( moveMouse, camera );
 
         let intersects = raycaster.intersectObjects( objects );
-    
-        for ( let i = 0; i < intersects.length; i ++ ) {
-    
-            draggable.position.x = intersects[i].point.x;
-            draggable.position.y = intersects[i].point.y;
-    
+        if (intersects.length > 0){
+
+            for ( let obj of intersects ) {
+                
+
+                draggable.position.x = obj.point.x;
+                draggable.position.y = obj.point.y;
+            }
         }
-    }
+    }    
 }
 
 /**
