@@ -1,5 +1,5 @@
 # Tangram-Game
-
+https://rafaelfrisch.github.io/Tangram-Game/
 ## Referência
 https://escolakids.uol.com.br/matematica/tangram.htm
 Ver também arquivo reference.png
@@ -25,3 +25,6 @@ npm run dev
 ```
 npm run build
 ```
+
+### Deploy
+Push to the main branch
