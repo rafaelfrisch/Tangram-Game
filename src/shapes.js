@@ -4,8 +4,6 @@
 */
 
 import * as THREE from 'three'
-import Utils from './utils.js'
-
 
 export const createTangram = (scene) => {
 
@@ -44,8 +42,12 @@ export const createTangram = (scene) => {
   // creating the figure -> piece to piece
   let piece;
 
+  // answers
+  let answers = {}
+
   // figure -> yellow triangle
   shape = new THREE.Shape();
+  answers.yellowTriangle = [figureOriginX, figureOriginY + (rootOf2 / 4) * size];
   shape.moveTo(figureOriginX, figureOriginY + (rootOf2 / 4) * size);
   shape.lineTo(figureOriginX + (rootOf2 / 4) * size, figureOriginY + (rootOf2 / 4) * size);
   shape.lineTo(figureOriginX + (rootOf2 / 4) * size, figureOriginY);
@@ -56,6 +58,7 @@ export const createTangram = (scene) => {
 
   // figure -> smaller red triangle
   shape = new THREE.Shape();
+  answers.smallerRedTriangle = [figureOriginX, figureOriginY + (rootOf2 / 4) * size];
   shape.moveTo(figureOriginX, figureOriginY + (rootOf2 / 4) * size);
   shape.lineTo(figureOriginX, figureOriginY + (rootOf2 / 2) * size);
   shape.lineTo(figureOriginX + (rootOf2 / 4) * size, figureOriginY + (rootOf2 / 4) * size);
@@ -66,6 +69,7 @@ export const createTangram = (scene) => {
 
   // figure -> green square
   shape = new THREE.Shape();
+  answers.greenSquare = [figureOriginX + (rootOf2 / 4) * size, figureOriginY + (rootOf2 / 4) * size];
   shape.moveTo(figureOriginX + (rootOf2 / 4) * size, figureOriginY + (rootOf2 / 4) * size);
   shape.lineTo(figureOriginX + (rootOf2 / 4) * size, figureOriginY);
   shape.lineTo(figureOriginX + (rootOf2 / 2) * size, figureOriginY);
@@ -77,6 +81,7 @@ export const createTangram = (scene) => {
 
   // figure -> purple tringle
   shape = new THREE.Shape();
+  answers.purpleTriangle = [figureOriginX + (rootOf2 / 2) * size, figureOriginY + (rootOf2 / 4) * size];
   shape.moveTo(figureOriginX + (rootOf2 / 2) * size, figureOriginY + (rootOf2 / 4) * size);
   shape.lineTo(figureOriginX + (rootOf2 / 2) * size, figureOriginY - (rootOf2 / 4) * size);
   shape.lineTo(figureOriginX + rootOf2 * size, figureOriginY + (rootOf2 / 4) * size);
@@ -87,6 +92,7 @@ export const createTangram = (scene) => {
 
   // figure -> pink tringle
   shape = new THREE.Shape();
+  answers.pinkTriangle = [figureOriginX + (rootOf2 / 2) * size, figureOriginY + (rootOf2 / 4) * size];
   shape.moveTo(figureOriginX + (rootOf2 / 2) * size, figureOriginY + (rootOf2 / 4) * size);
   shape.lineTo(figureOriginX + (rootOf2 / 2) * size, figureOriginY + (3 * rootOf2 / 4) * size);
   shape.lineTo(figureOriginX + rootOf2 * size, figureOriginY + (rootOf2 / 4) * size);
@@ -97,6 +103,7 @@ export const createTangram = (scene) => {
 
   // figure -> bigger red triangle
   shape = new THREE.Shape();
+  answers.biggerRedTriangle = [figureOriginX + rootOf2 * size, figureOriginY + (rootOf2 / 4) * size];
   shape.moveTo(figureOriginX + rootOf2 * size, figureOriginY + (rootOf2 / 4) * size);
   shape.lineTo(figureOriginX + (3 * rootOf2 / 4) * size, figureOriginY);
   shape.lineTo(figureOriginX + (5 * rootOf2 / 4) * size, figureOriginY);
@@ -107,6 +114,7 @@ export const createTangram = (scene) => {
 
   // figure -> blue parallelgram
   shape = new THREE.Shape();
+  answers.blueParalellgram = [figureOriginX + rootOf2 * size, figureOriginY + (rootOf2 / 4) * size];
   shape.moveTo(figureOriginX + rootOf2 * size, figureOriginY + (rootOf2 / 4) * size);
   shape.lineTo(figureOriginX + (5 * rootOf2 / 4) * size, figureOriginY);
   shape.lineTo(figureOriginX + (3 * rootOf2 / 2) * size, figureOriginY);
@@ -225,6 +233,6 @@ export const createTangram = (scene) => {
 
 
 
-  return { pinkTriangle, purpleTriangle, smallerRedTriangle, biggerRedTriangle, yellowTriangle, greenSquare, blueParalellgram, loader};
+  return { pinkTriangle, purpleTriangle, smallerRedTriangle, biggerRedTriangle, yellowTriangle, greenSquare, blueParalellgram, answers};
   
 }
