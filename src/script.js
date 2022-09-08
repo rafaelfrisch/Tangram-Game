@@ -56,6 +56,7 @@ const isTolerable = (size1, size2) => {
     return true;
 }
 
+
 const checkIfIsCorrect = () => {
 
     console.log(biggerRedTriangle.rotation.z)
@@ -136,7 +137,7 @@ window.addEventListener('keyup', event => {
 
     isPressingSpaceKey = false;
 
-    checkIfIsCorrect();
+    //checkIfIsCorrect();
 
 })
 
