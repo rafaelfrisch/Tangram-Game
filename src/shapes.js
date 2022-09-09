@@ -37,106 +37,16 @@ export const createTangram = (scene) => {
     scene.background = texture;
   });
 
-
-  
-  // creating the figure -> piece to piece
-  let piece;
-
-  // answers
-  let answers = {}
-
-  // figure -> yellow triangle
-  shape = new THREE.Shape();
-  answers.yellowTriangle = [figureOriginX, figureOriginY + (rootOf2 / 4) * size];
-  shape.moveTo(figureOriginX, figureOriginY + (rootOf2 / 4) * size);
-  shape.lineTo(figureOriginX + (rootOf2 / 4) * size, figureOriginY + (rootOf2 / 4) * size);
-  shape.lineTo(figureOriginX + (rootOf2 / 4) * size, figureOriginY);
-  geometry = new THREE.ShapeGeometry(shape);
-  material = new THREE.MeshBasicMaterial({ color: COLORS.GRAY });
-  piece = new THREE.Mesh(geometry, material);
-  scene.add(piece);
-
-
-  // figure -> smaller red triangle
-  shape = new THREE.Shape();
-  answers.smallerRedTriangle = [figureOriginX, figureOriginY + (rootOf2 / 4) * size];
-  shape.moveTo(figureOriginX, figureOriginY + (rootOf2 / 4) * size);
-  shape.lineTo(figureOriginX, figureOriginY + (rootOf2 / 2) * size);
-  shape.lineTo(figureOriginX + (rootOf2 / 4) * size, figureOriginY + (rootOf2 / 4) * size);
-  geometry = new THREE.ShapeGeometry(shape);
-  material = new THREE.MeshBasicMaterial({ color: COLORS.GRAY });
-  piece = new THREE.Mesh(geometry, material);
-  scene.add(piece);
-
-  // figure -> green square
-  shape = new THREE.Shape();
-  answers.greenSquare = [figureOriginX + (rootOf2 / 4) * size, figureOriginY + (rootOf2 / 4) * size];
-  shape.moveTo(figureOriginX + (rootOf2 / 4) * size, figureOriginY + (rootOf2 / 4) * size);
-  shape.lineTo(figureOriginX + (rootOf2 / 4) * size, figureOriginY);
-  shape.lineTo(figureOriginX + (rootOf2 / 2) * size, figureOriginY);
-  shape.lineTo(figureOriginX + (rootOf2 / 2) * size, figureOriginY + (rootOf2 / 4) * size);
-  geometry = new THREE.ShapeGeometry(shape);
-  material = new THREE.MeshBasicMaterial({ color: COLORS.GRAY });
-  piece = new THREE.Mesh(geometry, material);
-  scene.add(piece);
-
-  // figure -> purple tringle
-  shape = new THREE.Shape();
-  answers.purpleTriangle = [figureOriginX + (rootOf2 / 2) * size, figureOriginY + (rootOf2 / 4) * size];
-  shape.moveTo(figureOriginX + (rootOf2 / 2) * size, figureOriginY + (rootOf2 / 4) * size);
-  shape.lineTo(figureOriginX + (rootOf2 / 2) * size, figureOriginY - (rootOf2 / 4) * size);
-  shape.lineTo(figureOriginX + rootOf2 * size, figureOriginY + (rootOf2 / 4) * size);
-  geometry = new THREE.ShapeGeometry(shape);
-  material = new THREE.MeshBasicMaterial({ color: COLORS.GRAY });
-  piece = new THREE.Mesh(geometry, material);
-  scene.add(piece);
-
-  // figure -> pink tringle
-  shape = new THREE.Shape();
-  answers.pinkTriangle = [figureOriginX + (rootOf2 / 2) * size, figureOriginY + (rootOf2 / 4) * size];
-  shape.moveTo(figureOriginX + (rootOf2 / 2) * size, figureOriginY + (rootOf2 / 4) * size);
-  shape.lineTo(figureOriginX + (rootOf2 / 2) * size, figureOriginY + (3 * rootOf2 / 4) * size);
-  shape.lineTo(figureOriginX + rootOf2 * size, figureOriginY + (rootOf2 / 4) * size);
-  geometry = new THREE.ShapeGeometry(shape);
-  material = new THREE.MeshBasicMaterial({ color: COLORS.GRAY });
-  piece = new THREE.Mesh(geometry, material);
-  scene.add(piece);
-
-  // figure -> bigger red triangle
-  shape = new THREE.Shape();
-  answers.biggerRedTriangle = [figureOriginX + rootOf2 * size, figureOriginY + (rootOf2 / 4) * size];
-  shape.moveTo(figureOriginX + rootOf2 * size, figureOriginY + (rootOf2 / 4) * size);
-  shape.lineTo(figureOriginX + (3 * rootOf2 / 4) * size, figureOriginY);
-  shape.lineTo(figureOriginX + (5 * rootOf2 / 4) * size, figureOriginY);
-  geometry = new THREE.ShapeGeometry(shape);
-  material = new THREE.MeshBasicMaterial({ color: COLORS.GRAY });
-  piece = new THREE.Mesh(geometry, material);
-  scene.add(piece);
-
-  // figure -> blue parallelgram
-  shape = new THREE.Shape();
-  answers.blueParalellgram = [figureOriginX + rootOf2 * size, figureOriginY + (rootOf2 / 4) * size];
-  shape.moveTo(figureOriginX + rootOf2 * size, figureOriginY + (rootOf2 / 4) * size);
-  shape.lineTo(figureOriginX + (5 * rootOf2 / 4) * size, figureOriginY);
-  shape.lineTo(figureOriginX + (3 * rootOf2 / 2) * size, figureOriginY);
-  shape.lineTo(figureOriginX + (5 * rootOf2 / 4) * size, figureOriginY + (rootOf2 / 4) * size);
-  geometry = new THREE.ShapeGeometry(shape);
-  material = new THREE.MeshBasicMaterial({ color: COLORS.GRAY });
-  piece = new THREE.Mesh(geometry, material);
-  scene.add(piece);
-
-  
-
   // creating answer 
   function create_answer(){
     let pos = {x: 3, y: 0};
     let a = {x: size*0 - pos.x, y: size*0 - pos.y};
-    let b = {x: size*0 - pos.x, y: size - pos.y};
-    let c = {x: size - pos.x, y: size*0 - pos.y};
-    let d = {x: size*(rootOf2/4+1) - pos.x, y: size*0 - pos.y};
-    let e = {x: size*(rootOf2+5)/4 - pos.x, y: -size*rootOf2/4 - pos.y};
-    let f = {x: size/2 - pos.x, y: -size*rootOf2/4 - pos.y};
-    let g = {x: size*0 - pos.x, y: -size - pos.y};
+    let b = {x: size*0 - pos.x, y: size*rootOf2/2 - pos.y};
+    let c = {x: size*rootOf2/2 - pos.x, y: size*0 - pos.y};
+    let d = {x: size*(rootOf2*3/4) - pos.x, y: size*0 - pos.y};
+    let e = {x: size*(rootOf2*3+1)/4 - pos.x, y: -size*rootOf2/4 - pos.y};
+    let f = {x: size*rootOf2/4 - pos.x, y: -size*rootOf2/4 - pos.y};
+    let g = {x: size*0 - pos.x, y: -size*rootOf2/2 - pos.y};
     let h = {x: size*0 - pos.x, y: -size*rootOf2/4 - pos.y};
     let i = {x: -size*rootOf2/4 - pos.x, y: -size*rootOf2/4 - pos.y};
     let j = {x: -size*rootOf2/2 - pos.x, y: size*0 - pos.y};
@@ -160,7 +70,7 @@ export const createTangram = (scene) => {
     geometry = new THREE.ShapeGeometry(shape);
     material = new THREE.MeshBasicMaterial({color: COLORS.GRAY});
     let answer = new THREE.Mesh(geometry, material);
-    answer.position.set(pox.x, pos.y);
+    answer.position.set(7, pos.y);
     scene.add(answer);
 
     answer.userData.draggable = false;
@@ -235,7 +145,7 @@ export const createTangram = (scene) => {
 
   // creating the smaller red triangle
   function create__smaller_red_triangle() {
-    let pos = { x: size *11/12, y: size *3/4 };
+    let pos = { x: size *11/12, y: size *3/4};
     let a = { x: size - pos.x, y: size - pos.y };
     let b = { x: size - pos.x, y: size / 2 - pos.y };
     let c = { x: size *3/4 - pos.x, y: size *3/4 - pos.y };
@@ -371,7 +281,7 @@ export const createTangram = (scene) => {
     return blueParalellgram;
   }
 
-  //let answers = create_answer();
+  let answers = create_answer();
   let pinkTriangle = create__pink_triangle();
   let purpleTriangle = create__purple_triangle();
   let smallerRedTriangle = create__smaller_red_triangle();

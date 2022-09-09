@@ -56,6 +56,22 @@ const isTolerable = (size1, size2) => {
     return true;
 }
 
+// Check if a point is inside a polygon
+
+function check_point_in_polygon(polygon, point){
+    var v1 = new THREE.Vector3(point[0], point[1], 0);
+    var ray = new THREE.Ray(point[0], point[1], v1);
+    
+    var edges = [];
+
+    for (var i = 0; i < polygon.length; i++){
+        edges[i] = new THREE.Line()
+    }
+
+    geometry.intersectObjects()
+
+}
+
 
 const checkIfIsCorrect = () => {
 
