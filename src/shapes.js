@@ -10,10 +10,12 @@ export const createTangram = (scene) => {
   const size = 1;
   const originX = 0;
   const originY = 0;
-  const figureOffSetX = 3;
-  const figureOffSetY = 0;
-  const figureOriginX = originX + figureOffSetX;
-  const figureOriginY = originY + figureOffSetY;
+  const figureOffsetX = 7;
+  const figureOffsetY = 0;
+  const figureOffset = {
+    x: figureOffsetX,
+    y: figureOffsetY
+  }
 
   const rootOf2 = Math.sqrt(2);
 
@@ -70,11 +72,11 @@ export const createTangram = (scene) => {
     geometry = new THREE.ShapeGeometry(shape);
     material = new THREE.MeshBasicMaterial({color: COLORS.GRAY});
     let answer = new THREE.Mesh(geometry, material);
-    answer.position.set(7, pos.y);
+    answer.position.set(figureOffsetX, figureOffsetY);
     scene.add(answer);
 
     answer.userData.draggable = false;
-    answer.userData.name = "correct_answer";
+    answer.userData.name = "answers";
     answer.userData.a = a;
     answer.userData.b = b;
     answer.userData.c = c;
@@ -110,7 +112,8 @@ export const createTangram = (scene) => {
     scene.add(pinkTriangle);
 
     pinkTriangle.userData.draggable = true;
-    pinkTriangle.userData.name = 'pink_Triangle';
+    pinkTriangle.userData.name = 'pinkTriangle';
+    pinkTriangle.userData.isOnTheCorrectPlace = false;
     pinkTriangle.userData.a = a;
     pinkTriangle.userData.b = b;
     pinkTriangle.userData.c = c;
@@ -136,7 +139,8 @@ export const createTangram = (scene) => {
     scene.add(purpleTriangle);
 
     purpleTriangle.userData.draggable = true;
-    purpleTriangle.userData.name = 'purple_Triangle';
+    purpleTriangle.userData.name = 'purpleTriangle';
+    purpleTriangle.userData.isOnTheCorrectPlace = false;
     purpleTriangle.userData.a = a;
     purpleTriangle.userData.b = b;
     purpleTriangle.userData.c = c;
@@ -162,7 +166,8 @@ export const createTangram = (scene) => {
     scene.add(smallerRedTriangle);
 
     smallerRedTriangle.userData.draggable = true;
-    smallerRedTriangle.userData.name = 'smaller_Red_Triangle';
+    smallerRedTriangle.userData.name = 'smallerRedTriangle';
+    smallerRedTriangle.userData.isOnTheCorrectPlace = false;
     smallerRedTriangle.userData.a = a;
     smallerRedTriangle.userData.b = b;
     smallerRedTriangle.userData.c = c;
@@ -188,7 +193,8 @@ export const createTangram = (scene) => {
     scene.add(biggerRedTriangle);
 
     biggerRedTriangle.userData.draggable = true;
-    biggerRedTriangle.userData.name = 'bigger_Red_Triangle';
+    biggerRedTriangle.userData.name = 'biggerRedTriangle';
+    biggerRedTriangle.userData.isOnTheCorrectPlace = false;
     biggerRedTriangle.userData.a = a;
     biggerRedTriangle.userData.b = b;
     biggerRedTriangle.userData.c = c;
@@ -215,7 +221,8 @@ export const createTangram = (scene) => {
     scene.add(yellowTriangle);
 
     yellowTriangle.userData.draggable = true;
-    yellowTriangle.userData.name = 'yellow_Triangle';
+    yellowTriangle.userData.name = 'yellowTriangle';
+    yellowTriangle.userData.isOnTheCorrectPlace = false;
     yellowTriangle.userData.a = a;
     yellowTriangle.userData.b = b;
     yellowTriangle.userData.c = c;
@@ -244,7 +251,8 @@ export const createTangram = (scene) => {
     scene.add(greenSquare);
 
     greenSquare.userData.draggable = true;
-    greenSquare.userData.name = 'green_Square';
+    greenSquare.userData.name = 'greenSquare';
+    greenSquare.userData.isOnTheCorrectPlace = false;
     greenSquare.userData.a = a;
     greenSquare.userData.b = b;
     greenSquare.userData.c = c;
@@ -273,7 +281,8 @@ export const createTangram = (scene) => {
     scene.add(blueParalellgram);
 
     blueParalellgram.userData.draggable = true;
-    blueParalellgram.userData.name = 'blue_paralellgram';
+    blueParalellgram.userData.name = 'blueParalellgram';
+    blueParalellgram.userData.isOnTheCorrectPlace = false;
     blueParalellgram.userData.a = a;
     blueParalellgram.userData.b = b;
     blueParalellgram.userData.c = c;
@@ -294,6 +303,6 @@ export const createTangram = (scene) => {
   
 
 
-  return { pinkTriangle, purpleTriangle, smallerRedTriangle, biggerRedTriangle, yellowTriangle, greenSquare, blueParalellgram, answers };
+  return { pinkTriangle, purpleTriangle, smallerRedTriangle, biggerRedTriangle, yellowTriangle, greenSquare, blueParalellgram, answers, figureOffset };
 
 }

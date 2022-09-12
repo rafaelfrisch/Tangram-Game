@@ -5,6 +5,7 @@ import { createCamera } from './camera';
 import { createControls } from './controls';
 import { createRenderer } from './renderer';
 import { createTangram } from './shapes';
+import Utils from './utils';
 
 /**
  * Base
@@ -46,60 +47,37 @@ scene.add(camera)
 // Controls
 const controls = createControls(camera, canvas);
 
+// Utils
+const utils = new Utils();
+//console.log(utils.getIntersection({x: 0, y: 1}, {x: 1, y: 1}, {x: 1, y: 0}, {x: 0, y: 0}))
+
 // pieces of tangram and the figure game
-const { pinkTriangle, purpleTriangle, smallerRedTriangle, biggerRedTriangle, yellowTriangle, greenSquare, blueParalellgram, answers } = createTangram(scene);
+const { pinkTriangle, purpleTriangle, smallerRedTriangle, biggerRedTriangle, yellowTriangle, greenSquare, blueParalellgram, answers, figureOffset } = createTangram(scene);
 
-const isTolerable = (size1, size2) => {
-    if (Math.abs(size1 - size2) > 0.5)
-        return false;
-    
-    return true;
-}
-
-// Check if a point is inside a polygon
-
-function check_point_in_polygon(polygon, point){
-    var v1 = new THREE.Vector3(point[0], point[1], 0);
-    var ray = new THREE.Ray(point[0], point[1], v1);
-    
-    var edges = [];
-
-    for (var i = 0; i < polygon.length; i++){
-        edges[i] = new THREE.Line()
+const checkIfIsAircraftIsFilled = () => {
+    console.log("verificação geral")
+    if (pinkTriangle.userData.isOnTheCorrectPlace && purpleTriangle.userData.isOnTheCorrectPlace && smallerRedTriangle.userData.isOnTheCorrectPlace && biggerRedTriangle.userData.isOnTheCorrectPlace && yellowTriangle.userData.isOnTheCorrectPlace && greenSquare.userData.isOnTheCorrectPlace && blueParalellgram.userData.isOnTheCorrectPlace) {
+        alert("Congratulations!!! You finished the game!");
+        window.location = "./";
     }
 
-    geometry.intersectObjects()
+    return false;
+}
+
+const checkIfObjectIsOnTheCorrectPlace = (name) => {
+    if (name == pinkTriangle.userData.name) {
+        let status = checkIfPinkTriangleIsOnTheCorrectPlace(pinkTriangle);
+        pinkTriangle.userData.isOnTheCorrectPlace = status;
+        if (status === true) checkIfIsAircraftIsFilled();
+    }
 
 }
 
+const checkIfPinkTriangleIsOnTheCorrectPlace = (pinkTriangle) => {
 
-const checkIfIsCorrect = () => {
+    let pinkTriangleAnswer = { a: answers.userData.a, b: answers.userData.b, c: answers.userData.c }
+    let points = utils.getIntersectionPointsAndInsidePoints(pinkTriangle, pinkTriangleAnswer, 'triangle', figureOffset);
 
-    console.log(biggerRedTriangle.rotation.z)
-
-    if (!isTolerable(pinkTriangle.position.x, answers.pinkTriangle[0]) || !isTolerable(pinkTriangle.position.y, answers.pinkTriangle[1]))
-        return false;
-
-    if (!isTolerable(purpleTriangle.position.x, answers.purpleTriangle[0]) || !isTolerable(purpleTriangle.position.y, answers.purpleTriangle[1]))
-        return false;
-
-    if (!isTolerable(smallerRedTriangle.position.x, answers.smallerRedTriangle[0]) || !isTolerable(smallerRedTriangle.position.y, answers.smallerRedTriangle[1]))
-        return false;
-
-    if (!isTolerable(biggerRedTriangle.position.x, answers.biggerRedTriangle[0]) || !isTolerable(biggerRedTriangle.position.y, answers.biggerRedTriangle[1]) || (Math.abs((biggerRedTriangle.rotation.z - 2.36)) / Math.PI) % 1 > 0.04)
-        return false;
-
-    if (!isTolerable(yellowTriangle.position.x, answers.yellowTriangle[0]) || !isTolerable(yellowTriangle.position.y, answers.yellowTriangle[1]))
-        return false;
-
-    if (!isTolerable(greenSquare.position.x, answers.greenSquare[0]) || !isTolerable(greenSquare.position.y, answers.greenSquare[1]))
-        return false;
-
-    if (!isTolerable(blueParalellgram.position.x, answers.blueParalellgram[0]) || !isTolerable(blueParalellgram.position.y, answers.blueParalellgram[1]) || (Math.abs((blueParalellgram.rotation.z - 2.34)) / Math.PI) % 1 > 0.04)
-        return false;
-
-    alert("Você ganhou! Parabéns!!!");
-    window.location = "./";
 }
 
 /**
@@ -119,6 +97,7 @@ var isPressingSpaceKey = false;
 window.addEventListener('click', event => {
 
     if(draggable){
+        checkIfObjectIsOnTheCorrectPlace(draggable.userData.name);
         draggable = null;
         return;
     }
@@ -152,8 +131,6 @@ window.addEventListener('keydown', event => {
 window.addEventListener('keyup', event => {
 
     isPressingSpaceKey = false;
-
-    //checkIfIsCorrect();
 
 })
 
